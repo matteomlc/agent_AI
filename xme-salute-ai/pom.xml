@@ -13,6 +13,20 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>xme-salute-ai</name>
 	<description>Demo project for Spring AI</description>
+
+	<!-- BOM -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.ai</groupId>
+				<artifactId>spring-ai-bom</artifactId>
+				<version>1.0.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<url/>
 	<licenses>
 		<license/>
@@ -39,6 +53,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring AI core + Chat / LLM -->
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-openai</artifactId>
 		</dependency>
 	</dependencies>
 
