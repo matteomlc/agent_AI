@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: xme-salute-ai
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}   # environment OpenAI key
+      chat:
+        options:
+          model: gpt-4o-mini        # default model
+          temperature: 0.3          # setting to accurate answer
+
+server:
+  port: 8080   # port
