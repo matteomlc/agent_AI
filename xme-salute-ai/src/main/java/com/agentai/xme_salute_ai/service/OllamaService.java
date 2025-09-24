@@ -7,6 +7,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
+/*
 @Service
 public class OllamaService {
 
@@ -37,3 +38,4 @@ public class OllamaService {
     }
 
 }
+*/
