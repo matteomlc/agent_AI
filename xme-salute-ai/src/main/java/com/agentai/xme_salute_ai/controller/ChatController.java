@@ -1,7 +1,6 @@
 package com.agentai.xme_salute_ai.controller;
 
 import com.agentai.xme_salute_ai.service.ChatService;
-import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
