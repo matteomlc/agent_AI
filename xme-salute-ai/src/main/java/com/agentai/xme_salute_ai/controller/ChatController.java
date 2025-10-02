@@ -43,9 +43,7 @@ public class ChatController {
      */
     @PostMapping(value = "/ask/stream", produces = MediaType.TEXT_PLAIN_VALUE)
     public Flux<String> askStreamPost(@RequestParam String conversationId, @RequestBody String input) {
-        return chatService.askStreaming(conversationId, input)
-                .doOnNext(t -> System.out.print(t))
-                .doOnComplete(() -> System.out.println());
+        return chatService.askStreaming(conversationId, input);
     }
 
     /**
@@ -75,9 +73,7 @@ public class ChatController {
      */
     @GetMapping(value = "/ask/stream", produces = MediaType.TEXT_PLAIN_VALUE)
     public Flux<String> askStreamGet(@RequestParam String conversationId, @RequestParam String input) {
-        return chatService.askStreaming(conversationId, input)
-                .doOnNext(t -> System.out.print(t))
-                .doOnComplete(() -> System.out.println());
+        return chatService.askStreaming(conversationId, input);
     }
 
     /**
