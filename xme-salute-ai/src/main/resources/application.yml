@@ -3,22 +3,16 @@ spring:
     name: xme-salute-ai
 
   ai:
-    ollama:
-      base-url: http://localhost:11434
-      chat:
-        options:
-          model: gemma3:4b
-          temperature: 0.7
     openai:
-      base-url: http://localhost:12434/engines
+      base-url: http://localhost:5005/v1  # LLM
       api-key: dummy-key
       chat:
         options:
-          model: ai/smollm2:360M-Q4_K_M
-
+          model: WizardLM-7B-GGML
+      
 server:
   port: 8080   # port
 
 app:
   llm:
-    provider: ollama
+    provider: docker
