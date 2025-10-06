@@ -10,8 +10,10 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class ChatService {
@@ -66,18 +68,24 @@ public class ChatService {
      * @return
      */
     public Flux<String> askStreaming(String conversationId, String input) {
+        // Recupera lo storico
         List<Message> history = new ArrayList<>(chatMemory.findByConversationId(conversationId));
         history.add(new UserMessage(input));
 
         Prompt prompt = new Prompt(history);
 
-        return this.chatModel.stream(prompt)
-                .map(cr -> {
-                    Message reply = cr.getResult().getOutput();
-                    // salvataggio alla fine dello stream (potresti gestirlo anche a buffer chiuso)
-                    chatMemory.saveAll(conversationId, List.of(new UserMessage(input), reply));
-                    return reply.getText();
-                });
+        // Chiamata sincrona al modello (una sola volta)
+        ChatResponse response = chatModel.call(prompt);
+        Message reply = response.getResult().getOutput();
+        String fullText = reply.getText();
+
+        // Salva conversazione (input + risposta completa)
+        chatMemory.saveAll(conversationId, List.of(new UserMessage(input), reply));
+
+        // Simula lo streaming dividendo la risposta in parole (o caratteri)
+        return Flux.fromStream(Stream.of(fullText.split(" ")))
+                .delayElements(Duration.ofMillis(100)) // regola la velocità
+                .map(word -> word + " "); // aggiunge spazio tra parole
     }
 
     public void resetConversation(String conversationId) {

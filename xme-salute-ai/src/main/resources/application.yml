@@ -14,11 +14,11 @@ spring:
       api-key: dummy-key
       chat:
         options:
-          model: ai/smollm2:360M-Q4_K_M
+          model: ai/gemma3:1B-Q4_K_M
 
 server:
   port: 8080   # port
 
 app:
   llm:
-    provider: ollama
+    provider: docker
