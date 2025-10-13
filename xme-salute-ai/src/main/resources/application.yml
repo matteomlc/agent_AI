@@ -2,20 +2,26 @@ spring:
   application:
     name: xme-salute-ai
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springai
+    username: postgres
+    password: mysecretpassword
+
   ai:
-    ollama:
-      base-url: http://localhost:11434
-      chat:
-        options:
-          model: gemma3:4b
-          temperature: 0.7
     openai:
       base-url: http://localhost:12434/engines
       api-key: dummy-key
       chat:
         options:
           model: ai/gemma3:1B-Q4_K_M
-
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536
+        max-document-batch-size: 10000
+        initialize-schema: true  # crea automaticamente la tabella per gli embedding
+        table-name: vector_store
 server:
   port: 8080   # port
 
