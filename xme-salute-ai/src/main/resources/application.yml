@@ -6,6 +6,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgresml
     username: postgres
     password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
 
   ai:
     openai:
@@ -16,15 +17,21 @@ spring:
           model: ai/gemma3:1B-Q4_K_M
     vectorstore:
       pgvector:
+        table-name: vector_store
         index-type: HNSW
         distance-type: COSINE_DISTANCE
-        dimensions: 1536
+        dimensions: 384
         max-document-batch-size: 10000
         initialize-schema: true  # crea automaticamente la tabella per gli embedding
-        table-name: vector_store
+
 server:
   port: 8080   # port
 
 app:
   llm:
     provider: docker
+  postgresml:
+    embedding-function: pgml_embed_text
+    model-name: mixedbread-ai/mxbai-embed-large-v1
+  pdf:
+    folder: src/main/resources/doc
